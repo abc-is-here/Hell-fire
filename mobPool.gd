@@ -12,6 +12,10 @@ func _ready() -> void:
 		mob_pool.append(tempMob)
 		add_child(tempMob)
 
+func _process(delta: float) -> void:
+	if (get_parent().time_survived <= 9) and (get_parent().time_survived >= 1):
+		timer.wait_time = 10 - round(get_parent().time_survived/2)
+
 func get_mob() -> Node:
 	for mob in mob_pool:
 		if not mob.visible:

@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 @onready var player = get_node("../../player")
 var isAlive: bool = true
 var speed: int = 20
@@ -17,8 +16,7 @@ func _physics_process(delta: float) -> void:
 	if isAlive:
 		healthBar.value = health
 		var direction: Vector2 = (player.global_position - self.global_position).normalized()
-		velocity = speed*direction
-		move_and_slide()
+		self.velocity = speed*direction
 		
 		if direction.x<0:
 			sprite.flip_h = false
@@ -26,19 +24,26 @@ func _physics_process(delta: float) -> void:
 		else:
 			get_node("Marker2D").position = Vector2(10, -11)
 			sprite.flip_h = true
+		anim_play.hide()
+		sprite.show()
+		healthBar.show()
+		move_and_slide()
 	else:
 		anim_play.show()
 		sprite.hide()
 		healthBar.hide()
+		get_node("CollisionShape2D").disabled = true
 
 func reset_mob(body: Node) -> void:
 	if health > 1:
 		health-=1
 	else:
 		isAlive = false
+		health = 5
 		anim_play.play("death")
 		await anim_play.animation_finished
 		get_parent().reset_mob(body)
+		Global.score+=1
 
 func shoot_bullets() -> void:
 	if self.visible:
@@ -47,6 +52,7 @@ func shoot_bullets() -> void:
 		tempBullet.velocity = direction*100
 		tempBullet.global_position = get_node("Marker2D").global_position
 		tempBullet.show()
+		$AudioStreamPlayer2D.play()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

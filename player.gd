@@ -30,7 +30,11 @@ func _physics_process(delta: float) -> void:
 		tempBullet.velocity = direction*100
 		tempBullet.global_position = get_node("spawn_point").global_position
 		tempBullet.show()
+		$AudioStreamPlayer2D.play()
 		
 	velocity = input*speed
 	
 	move_and_slide()
+	
+	if Global.playerHealth<=0:
+		get_tree().change_scene_to_file("res://game_over.tscn")

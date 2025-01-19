@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3m3ky6qscxem"]
+[gd_scene load_steps=6 format=3 uid="uid://b3m3ky6qscxem"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2k4jr"]
 [ext_resource type="Texture2D" uid="uid://dn0el4uulinwx" path="res://assets/player.png" id="1_l2r05"]
 [ext_resource type="Script" path="res://PoolBullet.gd" id="3_fny13"]
+[ext_resource type="AudioStream" uid="uid://ct8bgiq4a63xd" path="res://shoot-3-81138.mp3" id="4_w6c4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wnuvm"]
 size = Vector2(12, 15)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_2k4jr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -23,3 +24,6 @@ script = ExtResource("3_fny13")
 
 [node name="spawn_point" type="Marker2D" parent="."]
 position = Vector2(0, 8)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_w6c4a")

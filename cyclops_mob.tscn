@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c14k5qtgyek1m"]
+[gd_scene load_steps=14 format=3 uid="uid://c14k5qtgyek1m"]
 
 [ext_resource type="Script" path="res://cyclops_mob.gd" id="1_3hfa0"]
 [ext_resource type="Texture2D" uid="uid://dql5gcm5yfaao" path="res://assets/monster sprites/cyclops_new.png" id="1_fich6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://deexhw2g7lej8" path="res://assets/enemy death animation/enemy_death_2.png" id="5_ryjor"]
 [ext_resource type="Texture2D" uid="uid://dmvamdis56kfo" path="res://assets/enemy death animation/enemy_death_3.png" id="6_4hdvy"]
 [ext_resource type="Script" path="res://AIPoolBullet.gd" id="7_cnoyy"]
+[ext_resource type="AudioStream" uid="uid://ct8bgiq4a63xd" path="res://shoot-3-81138.mp3" id="8_gspfp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8ieb"]
 size = Vector2(24, 20)
@@ -80,6 +81,9 @@ position = Vector2(-2, -11)
 
 [node name="ShootTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_gspfp")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
