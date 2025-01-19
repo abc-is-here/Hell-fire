@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds4fn0g2aoxeu"]
+
+[ext_resource type="Script" path="res://snake_game.gd" id="1_mst70"]
+
+[sub_resource type="Gradient" id="Gradient_1oayh"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7opu"]
+gradient = SubResource("Gradient_1oayh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcuoe"]
+size = Vector2(64, 64)
+
+[node name="snake_scene" type="Node2D"]
+script = ExtResource("1_mst70")
+
+[node name="snake" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="snake"]
+texture = SubResource("GradientTexture2D_p7opu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="snake"]
+shape = SubResource("RectangleShape2D_fcuoe")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="snake"]
+
+[node name="BodySegments" type="Node2D" parent="snake"]

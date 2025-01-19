@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvcjyi62vwlnv"]
+
+[ext_resource type="Script" path="res://power_up.gd" id="1_h04u6"]
+
+[sub_resource type="Gradient" id="Gradient_j0xrh"]
+colors = PackedColorArray(0, 0.603922, 0.827451, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fo7vn"]
+gradient = SubResource("Gradient_j0xrh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bw1ff"]
+size = Vector2(66, 62)
+
+[node name="powerUp" type="Area2D"]
+script = ExtResource("1_h04u6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_fo7vn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bw1ff")
