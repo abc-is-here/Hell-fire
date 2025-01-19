@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://c14k5qtgyek1m"]
+
+[ext_resource type="Script" path="res://cyclops_mob.gd" id="1_3hfa0"]
+[ext_resource type="Texture2D" uid="uid://dql5gcm5yfaao" path="res://assets/monster sprites/cyclops_new.png" id="1_fich6"]
+[ext_resource type="Texture2D" uid="uid://yc3tptrct3lg" path="res://assets/enemy death animation/enemy_death_0.png" id="3_2jhvf"]
+[ext_resource type="Texture2D" uid="uid://cr4dtnj5tm86a" path="res://assets/enemy death animation/enemy_death_1.png" id="4_3xd8v"]
+[ext_resource type="Texture2D" uid="uid://deexhw2g7lej8" path="res://assets/enemy death animation/enemy_death_2.png" id="5_ryjor"]
+[ext_resource type="Texture2D" uid="uid://dmvamdis56kfo" path="res://assets/enemy death animation/enemy_death_3.png" id="6_4hdvy"]
+[ext_resource type="Script" path="res://AIPoolBullet.gd" id="7_cnoyy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8ieb"]
+size = Vector2(24, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0g5yh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2jhvf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3xd8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ryjor")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4hdvy")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_av6wq"]
+bg_color = Color(1, 0.333412, 0.351529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12erk"]
+bg_color = Color(0, 0.720542, 0.323373, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ns3ol"]
+radius = 15.0
+
+[node name="cyclops mob" type="CharacterBody2D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_3hfa0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fich6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p8ieb")
+
+[node name="AnimPlay" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_0g5yh")
+animation = &"death"
+frame = 2
+frame_progress = 0.239804
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -22.0
+offset_top = -20.0
+offset_right = 21.0
+offset_bottom = -17.0
+theme_override_styles/background = SubResource("StyleBoxFlat_av6wq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_12erk")
+show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ns3ol")
+
+[node name="bullets" type="Node" parent="."]
+script = ExtResource("7_cnoyy")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-2, -11)
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
